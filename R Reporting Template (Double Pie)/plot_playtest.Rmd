@@ -1,0 +1,1174 @@
+---
+title: "설문조사 정리"
+author: "Naeae"
+date: "2023-06-05"
+output: html_document
+---
+
+
+
+```{r}
+library(data.table)
+library(dplyr)
+library(reticulate)
+library(patchwork)
+library(ggplot2)
+
+setwd('C:/Users/stylish1379_2bytesco/Desktop/R Reporting')
+
+k = c('15-20', '21-29', '30-39','40-49', '50+')
+tot = c(3,36,41,5,2)
+EN = c(2,21,15,1,2)
+KR = c(1,15,26,4,0)
+data = data.frame(k,tot,EN,KR)
+
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All Age",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN Age",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR Age",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("111 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+
+
+
+
+222
+```{r}
+
+k = c('Asia', 'Eastern Europe', 'North America','South America', 'Western Europe')
+tot = c(58,1,11,5,12)
+EN = c(12,1,11,5,12)
+KR = c(46,0,0,0,0)
+data = data.frame(k,tot,EN,KR)
+
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("222 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+3333
+```{r}
+
+k = c('5시간 이하', '5시간~10시간', '11시간~20시간', '21시간~30시간', '30시간 이상')
+tot = c(11,18,26,15,17)
+EN = c(2,5,14,12,8)
+KR = c(9,13,12,3,9)
+data = data.frame(k,tot,EN,KR)
+
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("333 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+4444 
+```{r}
+k = c('커뮤니티/유튜브','G.Round','스팀 검색','지인 추천','SNS(트위터/인스타/디스코드)', '웹진/뉴스', '기타')
+tot = c(40,16,9,8,5,5,4)
+EN = c(12,16,3,3,3,2,2)
+KR = c(28,0,6,5,2,3,2)
+data = data.frame(k,tot,EN,KR)
+
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("444 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+555
+```{r}
+k = c('신작 RTS 체험','전반적인 컨셉(Sci-SF)','트레일러', 'Full-3D 그래픽', '기타')
+tot = c(51,16,10,5,5)
+EN = c(21,8,6,3,3)
+KR = c(30,8,4,2,2)
+data = data.frame(k,tot,EN,KR)
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("555 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+666
+```{r}
+k = c('메크의 외형','인게임 그래픽','Camp (건설 / 메크 제작)','PvP','PvE','조작감')
+tot = c(42,14,13,11,6,1)
+EN = c(18,5,9,6,3,0)
+KR = c(24,9,4,5,3,1)
+data = data.frame(k,tot,EN,KR)
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("666 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+777
+```{r}
+k = c('조작감', 'Camp (건설 / 메크 제작)','PvP','PvE', '인게임 그래픽','메크의 외형')
+tot = c(27,22,15,13,5,5)
+EN = c(10,11,9,7,2,2)
+KR = c(17,11,6,6,3,3)
+data = data.frame(k,tot,EN,KR)
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("777 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+888
+```{r}
+k = rep(c('전반적인 그래픽', '게임의 세계관/컨셉', '조작감/조작 난이도', '메크 생산/전투 준비', '메크 외형',
+          'PvE 전투 만족도', 'PvP 전투 만족도', '튜토리얼', '사운드', 'UI/UX'),2)
+tot = c(5.43,4.41,4.29,3.80,5.24,4.17,3.58,4.19,4.34,4.5,4.76,4.63,2.82,3.13,4.86,2.82,3.08,3.26,4.17,3.02)
+group = c(rep('EN',length(k)/2), rep('KR',length(k)/2))
+data = data.frame(k,tot,group)
+
+a = ggplot(data, aes(k, tot, fill=group))+
+    geom_bar(stat='identity', position = 'dodge') + theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.ticks = element_blank(),
+        axis.text.x = element_text(angle=60, hjust=1)) + 
+   geom_text(aes(label=tot), position=position_dodge(width=1), size=3)
+
+
+
+a + ggsave("888 figure_dpi1000.png", dpi=1000, dev='png', height=4, width=5, units="in")
+```
+
+999
+```{r}
+k = c('메크 장비, 능력치 커스텀', '메크 장비, 스킬 이펙트 커스텀','메크 장비, 스킨 커스텀',
+      '스킬 이펙트, 능력치 커스텀', '메크 스킨, 능력치 커스텀','메크 스킨, 스킬 이펙트 커스텀', '기타')
+tot = c(21,16,27,4,3,11,5)
+EN = c(10,13,8,3,2,5,0)
+KR = c(11,3,19,1,1,6,5)
+data = data.frame(k,tot,EN,KR)
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("999 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+
+
+
+
+111111
+```{r}
+k = c('10개 미만으로 가능', '10-20개 사이','21-30개 사이','31개 이상','많으면 많을수록 좋다', '종족 구분이 반드시 존재')
+tot = c(5,28,9,1,22,22)
+EN = c(4,18,3,0,9,7)
+KR = c(1,10,6,1,13,15)
+data = data.frame(k,tot,EN,KR)
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("111111 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+
+
+121212
+```{r}
+k = c('멀티 Only, 싱글 불필요', '멀티 main, 싱글 가끔 한다',
+      '싱글 main, 멀티는 가끔 한다','싱글 Only, 멀티 불필요')
+tot = c(9,29,36,13)
+EN = c(4,9,19,9)
+KR = c(5,20,17,4)
+data = data.frame(k,tot,EN,KR)
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("121212 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+131313
+```{r}
+k = c('나는 항상 협동전을 플레이한다', '협동전은 게임의 일부다(가끔 한다)',
+      '나는 협동전을 거의/전혀 안한다')
+tot = c(47,27,13)
+EN = c(26,9,6)
+KR = c(21,18,7)
+data = data.frame(k,tot,EN,KR)
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("131313 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+
+
+
+
+141414
+```{r}
+k = c('20분 혹은 그 이하', '21 ~ 40분',
+      '41 ~ 60분','미션에 따라 짧고 길었으면 한다','길면 길수록 좋다')
+tot = c(33,23,1,29,1)
+EN = c(16,12,1,11,1)
+KR = c(17,11,0,18,0)
+data = data.frame(k,tot,EN,KR)
+
+
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("141414 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+151515
+```{r}
+k = c('가능한 짧게(10분 이하)', '15분~20분 정도',
+      '약 30분 정도','약 45분 정도','약 1시간 정도')
+tot = c(10,50,19,5,3)
+EN = c(4,22,10,2,3)
+KR = c(6,28,9,3,0)
+data = data.frame(k,tot,EN,KR)
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("151515 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+16,16,16
+```{r}
+k = c('좋아하는 몇 개의 맵 (1~2개)', '4~6개 정도의 맵',
+      '약 10개의 맵','최소한 15개 이상의 맵')
+tot = c(10,33,24,20)
+EN = c(4,16,15,6)
+KR = c(6,17,9,14)
+data = data.frame(k,tot,EN,KR)
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("161616 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+17,17,17
+```{r}
+# 17번은 무시
+```
+
+
+181818
+```{r}
+k = c('아니오', '예')
+tot = c(19,68)
+EN = c(12,29)
+KR = c(7,39)
+data = data.frame(k,tot,EN,KR)
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a / b / c + plot_layout(guides = 'collect') + ggsave("181818 figure_dpi1000.png", dpi=1000, dev='png', height=6, width=3, units="in")
+```
+
+
+191919
+```{r}
+k = c(rep('all',5),rep('EU',5),rep('KR',5))
+tot = c(20,26,12,6,4,12,14,2,1,0,8,12,10,5,4)
+group = rep(c('1만 원 미만', '1만 원~5만 원 미만','5만 원~10만 원 미만','10만 원~20만 원 미만','20만원 이상'),3)
+data = data.frame(k,tot,group)
+
+a = ggplot(data, aes(k, tot, fill=group))+
+    geom_bar(stat='identity', position = 'dodge') + theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.ticks = element_blank(),
+        axis.text.x = element_text(angle=60, hjust=1)) + 
+   geom_text(aes(label=tot), position=position_dodge(width=0.9), size=3) + 
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       size=3)
+
+
+
+a + ggsave("191919 figure_dpi1000.png", dpi=1000, dev='png', height=4, width=5, units="in")
+
+```
+
+
+
+202020
+```{r}
+k = c('외형 아이템', '성장을 위한 아이템','다양한 상품의 패키지','편의 아이템(시간 단축 등)')
+tot = c(40,13,10,5)
+EN = c(22,4,3,0)
+KR = c(18,9,7,5)
+data = data.frame(k,tot,EN,KR)
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("202020 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+
+212121
+```{r}
+k = c('1만 원 이하', '1만 원~2만 원 미만','2만 원~3만 원 미만',
+      '3만 원~4만 원 미만','4만 원~5만 원','무조건 무료')
+tot = c(12,25,17,7,5,21)
+EN = c(6,12,6,4,3,10)
+KR = c(6,13,11,3,2,11)
+data = data.frame(k,tot,EN,KR)
+
+
+a = ggplot(data, aes (x="", y = tot, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(tot / sum(tot) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "All",
+       size=3) + 
+  coord_polar("y")
+
+
+b= ggplot(data, aes (x="", y = EN, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(EN / sum(EN) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "EN",
+       size=3) + 
+  coord_polar("y")
+
+c = ggplot(data, aes (x="", y = KR, fill = factor(k))) + 
+  geom_col(position = 'stack', width = 1) +
+  geom_text(aes(label = paste(round(KR / sum(KR) * 100, 0), "%"), x = 1.3),
+            position = position_stack(vjust = 0.5), size=3) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       title = "KR",
+       size=3) + 
+  coord_polar("y")
+
+a + b + c + plot_layout(guides = 'collect') + ggsave("212121 figure_dpi1000.png", dpi=1000, dev='png', height=3, width=9, units="in")
+```
+
+
+
+
+222222
+```{r}
+k = c(rep('all',4),rep('EU',4),rep('KR',4))
+tot = c(4.15,3.68,4.06,3.45,4.56,3.51,4.24,3.90,3.74,3.85,3.87,3.00)
+group = rep(c('커스터 마이징에 많은 시간을 할애', '희소한 치장 아이템을 가지는것은 중요',
+              '빠른 액션(1점) vs. 깊은 전략(6점)','다수의 유닛 부대 조작(1점) vs. 디테일한 유닛 조작(6점)'),3)
+data = data.frame(k,tot,group)
+
+a = ggplot(data, aes(k, tot, fill=group))+
+    geom_bar(stat='identity', position = 'dodge', color = 'white') + theme_classic() +
+  theme(plot.title = element_text(hjust=0.5),
+        axis.ticks = element_blank(),
+        axis.text.x = element_text(angle=60, hjust=1)) + 
+   geom_text(aes(label=tot), position=position_dodge(width=0.9), size=3) + 
+  labs(fill = "Category",
+       x = NULL,
+       y = NULL,
+       size=3)
+
+
+
+a + ggsave("222222 figure_dpi1000.png", dpi=1000, dev='png', height=4.5, width=9, units="in")
+
+```

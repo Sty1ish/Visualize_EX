@@ -1,0 +1,394 @@
+---
+title: "SG_SNF_Report"
+author: "Naeae"
+date: "2023-06-01"
+output: html_document
+---
+
+```{r, include=F}
+# library import
+library(data.table)
+library(dplyr)
+library(reticulate)
+library(patchwork)
+
+# python package install
+py_install('scipy')
+py_install('seaborn')
+
+setwd('C:/Users/stylish1379_2bytesco/Desktop/R Reporting')
+fwrite(iris[1:4], 'iris.csv')
+```
+
+echo=FALSE 실행결과 생략
+echo=F 코드 생략
+eval=F 코드 실행 X
+
+
+```{r}
+df = fread('Twitch_Summary_Space Gears.csv')
+head(df)
+```
+
+len(df$broadcaster_cnt)
+
+
+
+1:length(df$broadcaster_cnt)
+
+
+
+# 기묘한 플롯. 의외로 효율적 히스토그램.
+```{r}
+library(ggplot2)
+ggplot(iris, aes(x = Sepal.Length)) +
+  geom_bar(aes(fill=Species))
+```
+# 이분야의 정석 코드
+```{r}
+ggplot(mpg, aes(hwy, fill=drv)) + geom_histogram(binwidth=1)
+```
+# 변형 형태. 빈도를 비율로.
+
+```{r}
+ggplot(mpg, aes(hwy, color=drv)) + geom_freqpoly(binwidth=2)
+```
+
+# 해당 플롯을, 추정된 확률밀도 분포로 변환
+```{r}
+ggplot(mpg, aes(hwy, color=drv)) + geom_density()
+```
+
+
+```{r}
+ggplot()+ geom_line(mapping=aes(x=1:length(df$broadcaster_cnt), y=df$broadcaster_cnt)) +
+  geom_smooth()
+```
+
+```{r}
+ggplot()+ geom_line(mapping=aes(x=1:length(df$viewer_cnt), y=df$viewer_cnt)) +
+  geom_smooth()
+```
+
+
+
+
+
+
+# 정석.
+
+```{r}
+ggplot(iris, aes(x=Species, y=Sepal.Length, fill=Species)) + geom_bar(stat="identity")
+```
+
+
+```{r}
+ggplot(iris, aes(x=Species, y=Sepal.Length, fill=Species)) + geom_point(size=2) + scale_colour_hue()
+# ggplot(iris, aes(x=Species, y= mean(Sepal.Length), fill=Species)) + geom_point(size=2) + scale_colour_hue()
+```
+
+
+# 연속적인 컬러.
+
+```{r}
+# Use a different gradient
+ggplot(iris, aes(x=Species, y=Sepal.Length, colour=Sepal.Length)) + geom_point() + scale_colour_gradientn(colours = rainbow(4))
+```
+
+# 산점도 + 크기.
+```{r}
+ggplot() +
+  geom_point(mapping=aes(x=displ, y=hwy, size=class), data=mpg)
+# , alpha=cyl 면 투명도로 변경.
+```
+
+
+
+# 평활 - 그루핑. 수치.
+
+
+```{r}
+ggplot() + geom_smooth(mapping=aes(x=Sepal.Width, y=Sepal.Length), data=iris )
+```
+
+# 평활 - 그룹별 - 신뢰구간
+```{r}
+ggplot() + geom_smooth(mapping=aes(x=Sepal.Width, y=Sepal.Length, color=Species), data=iris )
+# se=F로 신뢰구간 안볼 수 있다.
+```
+
+
+# 그래프 여러개 묶어서 보여주기.
+```{r}
+aa = ggplot(iris, aes(x=Species, y=Sepal.Length, colour=Sepal.Length)) + geom_point() + scale_colour_gradientn(colours = rainbow(4))
+
+bb = ggplot() + geom_smooth(mapping=aes(x=Sepal.Width, y=Sepal.Length, color=Species), data=iris )
+
+(bb+bb) / (aa+aa) / (bb+aa+bb)
+
+```
+
+# 편하게 배치 가능.
+```{r}
+(bb+bb) / (aa+aa) / (bb+aa+bb) + plot_layout(guides = 'collect')
+```
+
+# 플롯 예쁘게 하는데 참고.
+geom_errorbar
+geom_hline
+geom_vline
+theme
+scale_color_manual
+scale_linetype_manual
+
+
+https://kilhwan.github.io/rprogramming/ch-visualization.html의 8-3 항목
+
+범주별로 산점도 다르게 그리기
+facets
+```{r}
+ggplot() + geom_point(mapping=aes(x=displ, y=hwy), data=mpg) +
+  facet_wrap(~class, nrow = 2)
+```
+두개 이상 조합시
+```{r}
+ggplot() + geom_point(mapping=aes(x=displ, y=hwy), data=mpg) +
+  facet_wrap(~drv + year, nrow = 2)
+```
+# 2차원 범주 측면
+```{r}
+ggplot() + geom_point(mapping=aes(x=displ, y=hwy), data=mpg) +
+  facet_grid(drv~cyl)
+```
+
+산점도 + 추세
+```{r}
+ggplot() + 
+  geom_point(mapping=aes(x=displ, y=hwy), data=mpg) +
+  geom_smooth(mapping=aes(x=displ, y=hwy), data=mpg)
+```
+
+
+y가 여럿일때 겹쳐 그려지는 형태
+이 형태는 y범례 유의. 지우는게 차라리 낫다.
+
+```{r}
+ggplot() + 
+  geom_point(mapping=aes(x=displ, y=hwy), data=mpg) +
+  geom_smooth(mapping=aes(x=displ, y=hwy), data=mpg) + 
+  geom_point(mapping=aes(x=displ, y=cty), data=mpg, col="red", shape=1) +
+  geom_smooth(mapping=aes(x=displ, y=cty), data=mpg, linetype=2, col="red")
+```
+
+
+산점도에서 특정 점만 강조 
+검은점 위에 빨간점을 그려 색칠한것 처럼 확인됨.
+
+```{r}
+ggplot() +
+  geom_point(mapping=aes(displ, hwy), data=mpg) +
+  geom_point(mapping=aes(displ, hwy), 
+             data=filter(mpg, displ > 5, hwy > 20), 
+             color="red", size=2)
+```
+
+서순 유의. 색깔 정하고, 점찍어야 서순이 맞다.
+설정에서 앞선 내용을 무조건 상속받음.
+
+```{r}
+ggplot(data=mpg, mapping=aes(x=displ, y=hwy, color=drv)) +
+  geom_point() + geom_smooth()
+```
+
+```{r}
+ggplot(data=mpg, mapping=aes(x=displ, y=hwy, color=drv)) + 
+  geom_point(mapping=aes(shape=drv)) + 
+  geom_smooth(mapping=aes(linetype=drv))
+```
+
+히스토그램
+```{r}
+ggplot(diamonds) + geom_histogram(aes(carat))
+```
+
+```{r}
+ggplot(diamonds) + geom_histogram(aes(price), binwidth=500)
+```
+
+
+# 막대 차트 3가지 형태
+```{r}
+ggplot(mpg) + geom_bar(aes(class, fill=drv))
+```
+
+
+```{r}
+ggplot(mpg) + geom_bar(aes(class, fill=drv), position="dodge")
+```
+
+
+```{r}
+ggplot(mpg) + geom_bar(aes(class, fill=drv), position="fill")
+```
+
+# x y축 한계 정하기. 축 맞추기
+
+```{r}
+p <- ggplot(mpg, aes(cty, hwy)) + geom_point()
+p1 <- p + geom_vline(xintercept = mean(mpg$cty), linetype=2, color="red") +
+  geom_hline(yintercept = mean(mpg$hwy), linetype=2, color="red")
+p1
+
+p1 + geom_abline(a=0, b=1, linetype=3, color="blue") +
+  scale_x_continuous(limits = c(0, 45)) +
+  scale_y_continuous(limits = c(0, 45))
+```
+# 빈도 / 라벨
+```{r}
+filter(mpg, class == "midsize", year == 2008) %>% ggplot(aes(cty, hwy)) + geom_point() + geom_label(aes(label=model), nudge_y=0.2, size=3)
+```
+
+
+
+
+# 결합분포.
+```{r}
+ggplot(mpg, aes(cty, hwy)) + geom_bin2d(binwidth=c(2,2))
+```
+
+부분 회귀
+```{r}
+ggplot(mpg, aes(displ, cty)) + 
+  geom_point() + geom_smooth(method="lm") + 
+  facet_wrap(~drv)
+```
+
+# 좌표 전환
+```{r}
+p + coord_flip()
+```
+
+# 원형 변환
+```{r}
+p + coord_polar()
+```
+# 원형 누적 변환
+```{r}
+ggplot(mpg, aes(class, fill=drv)) + 
+  geom_bar(position="fill") + coord_polar()
+```
+
+
+
+
+
+
+
+
+
+
+
+Correlation 
+
+```{python}
+import os
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from scipy.cluster.hierarchy import linkage, dendrogram, fcluster
+from scipy.spatial.distance import squareform
+
+data = pd.read_csv('iris.csv')
+
+plt.figure(figsize=(15,10))
+correlations = data.corr()
+sns.heatmap(round(correlations,2), cmap='RdBu', annot=True, 
+            annot_kws={"size": 7}, vmin=-1, vmax=1);
+plt.show()
+
+test_py_data = 'write python'
+test_py_df = pd.read_csv('iris.csv').apply(lambda x : x/100)
+```
+
+```{python}
+plt.figure(figsize=(12,5))
+dissimilarity = 1 - abs(correlations)
+Z = linkage(squareform(dissimilarity), 'complete')
+
+dendrogram(Z, labels=data.columns, orientation='top',  leaf_rotation=90);
+plt.show()
+```
+
+
+clustering
+```{python}
+# Clusterize the data
+threshold = 0.8
+labels = fcluster(Z, threshold, criterion='distance')
+
+# Show the cluster
+labels
+```
+
+
+```{python}
+# Keep the indices to sort labels
+labels_order = np.argsort(labels)
+
+# Build a new dataframe with the sorted columns
+for idx, i in enumerate(data.columns[labels_order]):
+    if idx == 0:
+        clustered = pd.DataFrame(data[i])
+    else:
+        df_to_append = pd.DataFrame(data[i])
+        clustered = pd.concat([clustered, df_to_append], axis=1)
+```
+
+clusterd correlation
+
+```{python}
+plt.figure(figsize=(15,10))
+correlations = clustered.corr()
+sns.heatmap(round(correlations,2), cmap='RdBu', annot=True, 
+            annot_kws={"size": 7}, vmin=-1, vmax=1);
+plt.show()
+```
+임계값 대비 군집 효과
+```{python}
+plt.figure(figsize=(15,10))
+
+for idx, t in enumerate(np.arange(0.2,1.1,0.1)):
+    
+    # Subplot idx + 1
+    plt.subplot(3, 3, idx+1)
+    
+    # Calculate the cluster
+    labels = fcluster(Z, t, criterion='distance')
+
+    # Keep the indices to sort labels
+    labels_order = np.argsort(labels)
+
+    # Build a new dataframe with the sorted columns
+    for idx, i in enumerate(data.columns[labels_order]):
+        if idx == 0:
+            clustered = pd.DataFrame(data[i])
+        else:
+            df_to_append = pd.DataFrame(data[i])
+            clustered = pd.concat([clustered, df_to_append], axis=1)
+            
+    # Plot the correlation heatmap
+    correlations = clustered.corr()
+    sns.heatmap(round(correlations,2), cmap='RdBu', vmin=-1, vmax=1, 
+                xticklabels=False, yticklabels=False)
+    plt.title("Threshold = {}".format(round(t,2)))
+plt.show()
+```
+최종 임계값 선정.
+```{python}
+sns.clustermap(correlations, method="complete", cmap='RdBu', annot=True, 
+               annot_kws={"size": 7}, vmin=-1, vmax=1, figsize=(15,12));
+plt.show()
+```
+
+
